@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { getLogs } from '../../actions/logActions';
 
 
-const Logs = ({ log: { logs, loading } }) => {
+const Logs = ({ log: { logs, loading }, getLogs }) => {
 
     useEffect(() => {
         getLogs();
@@ -14,8 +14,7 @@ const Logs = ({ log: { logs, loading } }) => {
     }, []);
 
 
-
-    if (loading) {
+    if (loading || logs === null) {
         return <Preloader />;
     }
 
@@ -42,5 +41,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    { getLogs }
 )(Logs);
